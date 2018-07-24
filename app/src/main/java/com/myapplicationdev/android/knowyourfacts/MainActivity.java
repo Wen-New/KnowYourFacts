@@ -1,8 +1,18 @@
 package com.myapplicationdev.android.knowyourfacts;
 
+import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Fragment> al;
     MyFragmentPagerAdapter adapter;
     ViewPager vPager;
+
+    int requestCode = 123;
+    int notificationID = 888;
 
     Button btnReadLater;
 
@@ -45,13 +58,20 @@ public class MainActivity extends AppCompatActivity {
         btnReadLater.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (btnReadLater.getText().toString().equals("Read Later")) {
-                    btnReadLater.setText("Read Now");
-                    vPager.setVisibility(View.GONE);
-                } else {
-                    btnReadLater.setText("Read Later");
-                    vPager.setVisibility(View.VISIBLE);
-                }
+                Calendar cal = Calendar.getInstance();
+                cal.add(Calendar.SECOND, 5);
+
+                Intent intent = new Intent(MainActivity.this,
+                        ScheduledNotificationReceiver.class);
+
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                        MainActivity.this, requestCode,
+                        intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+                AlarmManager am = (AlarmManager)
+                        getSystemService(Activity.ALARM_SERVICE);
+                am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),
+                        pendingIntent);
             }
         });
     }
