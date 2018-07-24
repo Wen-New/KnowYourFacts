@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Know Your Facts</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment1">Honey is the only food that does not spoil. Honey found in the tombs of Egyptian pharaohs has been tasted by archaeologists and found edible.</string>
+    <string name="hello_blank_fragment2">What is called a "French kiss" in the English speaking world is known as an "English kiss" in France.</string>
+    <string name="hello_blank_fragment3">Queen Elizabeth I regarded herself as a paragon of cleanliness. She declared that she bathed once every three months, whether she needed it or not</string>
+</resources>
